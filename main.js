@@ -33,20 +33,32 @@ var MISSION = {
 };
 
 var Mission = function(config) {
-  this.state = GAMESTATES.UNKNOWN
+  this.state = GAMESTATES.UNKNOWN;
+  this.leader = null;
   this.team = [];
+  // Map of player names to votes for the proposed team
   this.votes = {};
+  this.requiredFails = 0;
+  this.requiredPlayers = 0;
 };
 
 var GameState = function(config) {
+  // Pointer to the current active mission.
   this.currentMission = null;
+  // Array of all missions in the game
   this.missions = [];
+  // Score of passed and failed missions
   this.missionsPassed = 0;
   this.missionsFailed = 0;
+  // Array of all the player objects
   this.players = [];
-  this.accusations = [];
+  // Map of accusations (meta game allowing bots to accuse each other)
+  this.accusations = {};
+  // Array of all players who are on the spy team
   this.spies = [];
+  // Array of all players who are on the resistance team
   this.resistance = [];
+  // Allegance of the team that won. (null if game is still underway)
   this.winner = null;
 };
 
@@ -58,6 +70,8 @@ var Game = function(config) {
 var PlayerAgent = function(config) {
   // This is the proxy for calling into the player, and providing callbacks,
   // This also is what times them out.
+  // This will also have to create a shallow clone of the game state that is
+  // read only and allows access to the different sets of data available.
 };
 
 
